@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificado de Riesgo Vial</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 2cm;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 28px;
+        }
+        .header h2 {
+            color: #7f8c8d;
+            margin: 10px 0 0 0;
+            font-size: 18px;
+            font-weight: normal;
+        }
+        .section {
+            margin-bottom: 25px;
+        }
+        .section-title {
+            background-color: #34495e;
+            color: white;
+            padding: 10px;
+            margin: 20px 0 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .stat-box {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        table th {
+            background-color: #34495e;
+            color: white;
+        }
+        table tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            text-align: center;
+            font-size: 12px;
+            color: #7f8c8d;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Certificado de Riesgo Vial</h1>
+        <h2>{{ tipo_zona|title }}: {{ nombre_zona }}</h2>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Resumen General</div>
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-label">Total de Incidentes</div>
+                <div class="stat-value">{{ total_incidentes }}</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Promedio Mensual</div>
+                <div class="stat-value">{{ promedio_mensual }}</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Incidentes C5 (Oficiales)</div>
+                <div class="stat-value">{{ total_c5 }}</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Reportes Ciudadanos</div>
+                <div class="stat-value">{{ total_usuarios }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">Tipos de Incidentes Más Comunes</div>
+        <h3>Datos Oficiales (C5)</h3>
+        {% if tipos_c5 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo de Incidente</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tipo, cantidad in tipos_c5.items() %}
+                <tr>
+                    <td>{{ tipo }}</td>
+                    <td>{{ cantidad }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay datos disponibles de C5 para esta zona.</p>
+        {% endif %}
+
+        <h3>Reportes Ciudadanos</h3>
+        {% if tipos_usuarios %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo de Incidente</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tipo, cantidad in tipos_usuarios.items() %}
+                <tr>
+                    <td>{{ tipo }}</td>
+                    <td>{{ cantidad }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay reportes ciudadanos para esta zona.</p>
+        {% endif %}
+    </div>
+
+    <div class="section">
+        <div class="section-title">Horas Más Peligrosas del Día</div>
+        <h3>Datos Oficiales (C5)</h3>
+        {% if horas_peligrosas_c5 %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Cantidad de Incidentes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hora, cantidad in horas_peligrosas_c5.items() %}
+                <tr>
+                    <td>{{ hora }}:00</td>
+                    <td>{{ cantidad }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay datos disponibles de C5 para esta zona.</p>
+        {% endif %}
+
+        <h3>Reportes Ciudadanos</h3>
+        {% if horas_peligrosas_usuarios %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Cantidad de Incidentes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for hora, cantidad in horas_peligrosas_usuarios.items() %}
+                <tr>
+                    <td>{{ hora }}:00</td>
+                    <td>{{ cantidad }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay reportes ciudadanos para esta zona.</p>
+        {% endif %}
+    </div>
+
+    <div class="warning">
+        <strong>Nota:</strong> Este certificado combina datos oficiales del C5 (Centro de Comando, Control, Cómputo, Comunicaciones y Contacto Ciudadano) y reportes ciudadanos. Los datos se actualizan periódicamente.
+    </div>
+
+    <div class="footer">
+        <p>Fecha de generación: {{ fecha_generacion }}</p>
+        <p>Waze Ciudadano CDMX - Sistema de Análisis de Riesgo Vial</p>
+    </div>
+</body>
+</html>
+

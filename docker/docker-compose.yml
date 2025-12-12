@@ -1,0 +1,33 @@
+# docker-compose.yml para orquestar backend y frontend
+# Opcional: facilita el desarrollo y despliegue
+
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+    container_name: waze-cdmx-backend
+    ports:
+      - "8000:8000"
+    volumes:
+      # Montar directorio de datos para persistencia
+      - ../data:/app/data
+      # Montar código para desarrollo (opcional, comentar en producción)
+      # - ../backend:/app/backend
+    environment:
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.frontend
+    container_name: waze-cdmx-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+

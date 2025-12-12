@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Waze Ciudadano CDMX - Reportes Viales</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚗 Waze Ciudadano CDMX</h1>
+            <p>Reporta incidentes viales y consulta datos históricos del C5</p>
+        </header>
+
+        <div class="main-content">
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+
+            <div class="sidebar">
+                <div class="panel">
+                    <h2>📝 Nuevo Reporte</h2>
+                    <form id="report-form">
+                        <div class="form-group">
+                            <label for="tipo">Tipo de Incidente:</label>
+                            <select id="tipo" name="tipo" required>
+                                <option value="">Selecciona...</option>
+                                <option value="bache">Bache</option>
+                                <option value="choque">Choque</option>
+                                <option value="semaforo">Semáforo Descompuesto</option>
+                                <option value="inundacion">Inundación</option>
+                                <option value="manifestacion">Manifestación</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="descripcion">Descripción:</label>
+                            <textarea id="descripcion" name="descripcion" rows="3" placeholder="Describe el incidente..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lat">Latitud:</label>
+                            <input type="number" id="lat" name="lat" step="0.000001" required placeholder="19.4326">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lon">Longitud:</label>
+                            <input type="number" id="lon" name="lon" step="0.000001" required placeholder="-99.1332">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="alcaldia">Alcaldía (opcional):</label>
+                            <input type="text" id="alcaldia" name="alcaldia" placeholder="Ej: Benito Juárez">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="colonia">Colonia (opcional):</label>
+                            <input type="text" id="colonia" name="colonia" placeholder="Ej: Narvarte Poniente">
+                        </div>
+
+                        <button type="submit" class="btn-primary">Enviar Reporte</button>
+                        <button type="button" id="btn-use-current-location" class="btn-secondary">Usar Mi Ubicación</button>
+                    </form>
+                </div>
+
+                <div class="panel">
+                    <h2>📊 Reportes Recientes</h2>
+                    <div id="reports-list">
+                        <p class="loading">Cargando reportes...</p>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <h2>📈 Estadísticas</h2>
+                    <button id="btn-load-stats" class="btn-secondary">Cargar Top Zonas</button>
+                    <div id="stats-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
+
