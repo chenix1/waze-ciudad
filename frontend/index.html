@@ -73,11 +73,62 @@
                     </div>
                 </div>
 
-                <div class="panel">
-                    <h2>📈 Estadísticas</h2>
-                    <button id="btn-load-stats" class="btn-secondary">Cargar Top Zonas</button>
-                    <div id="stats-content"></div>
+     	 <div class="panel">
+                    <h2>📊 Consultar Estadísticas</h2>
+                    
+                    <div class="form-group">
+                        <label for="stat-tipo">Tipo de Incidente:</label>
+                        <select id="stat-tipo">
+                            <option value="">(Opcional)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="stat-alcaldia">Alcaldía:</label>
+                        <select id="stat-alcaldia">
+                            <option value="">(Opcional)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="stat-colonia">Colonia:</label>
+                        <select id="stat-colonia" disabled>
+                            <option value="">Primero selecciona alcaldía</option>
+                        </select>
+                    </div>
+                    
+                    <button id="btn-consultar-stats" class="btn-primary">Consultar</button>
+                    
+                    <div id="stats-results" style="margin-top: 15px;"></div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+  <!-- Modal de Reportes -->
+    <div id="reportsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📋 Todos los Reportes</h2>
+                <button class="close-modal" onclick="closeModal('reportsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="allReportsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Estadísticas -->
+    <div id="statsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📊 Estadísticas Detalladas</h2>
+                <button class="close-modal" onclick="closeModal('statsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="allStatsContainer"></div>
             </div>
         </div>
     </div>

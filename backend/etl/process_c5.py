@@ -88,16 +88,11 @@ def process_c5_csv(
     column_mapping = {
         # Mapeo esperado (ajustar según CSV real)
         "fecha_creacion": "fecha_hora",
-        "fecha": "fecha_hora",
-        "fecha_hora": "fecha_hora",
-        "tipo_incidente": "tipo_incidente",
-        "incidente": "tipo_incidente",
-        "alcaldia": "alcaldia",
-        "colonia": "colonia",
+        "incidente_c4": "tipo_incidente",
+        "alcaldia_catalogo": "alcaldia",
+        "colonia_catalogo": "colonia",
         "latitud": "latitud",
         "longitud": "longitud",
-        "lon": "longitud",
-        "descripcion": "descripcion",
     }
     
     # Renombrar columnas si existen
